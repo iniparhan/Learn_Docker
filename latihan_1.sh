@@ -85,5 +85,33 @@ docker pull mysql
 docker images | grep mysql
 read -r -p "Bagian 7 Selesai. Tekan Enter untuk menyelesaikan script..."
 
-echo -e "\n--- Semua Latihan Selesai! ---"
-echo "Kamu sudah berhasil melewati dasar-dasar perintah Docker."
+# --- Bagian 8 ---
+# Latihan: Jalankan container Ubuntu dengan sleep 300 agar tetap hidup:
+docker run -d --name latihan-exec ubuntu sleep 300
+# Latihan: masuk ke dalam container yang sedang berjalan
+docker exec -it <container_id> bash
+
+# --- Bagian 9 ---
+# Format
+# docker run -d -p <host_port>:<container_port> <image>
+
+# Latihan: Jalankan Web Server Nginx
+docker run -d --name web-nginx -p 8080:80 nginx
+# Latihan: Jalankan Server Python HTTP (Port 8000)
+docker run -d -p 8000:8000 python:3-slim python -m http.server 8000
+
+# --- Bagian 10 ---
+# Format
+# docker run -v /path/di/host:/path/di/container image
+
+# Latihan: Jalankan Python Script dari Folder Host
+print("Hai dari volume!") # anggap aja file ini berada di direktori "docker_test/test.py"
+docker run --rm -v $(cd)/docker_test:/app python:3 python /app/test.py  # Jika linux
+docker run --rm -v %cd%:/app python:3 python /app/test.py  # Jika windows
+
+# --- Bagian 11 ---
+# Format
+# docker build -t nama-image:tag .
+
+# Latihan: Buat Dockerfile sederhana
+docker build -t farhan/halo:v1 .
